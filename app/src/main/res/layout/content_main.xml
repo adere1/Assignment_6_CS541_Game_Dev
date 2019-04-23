@@ -44,9 +44,41 @@ android:orientation="vertical" >
 <EditText
     android:id="@+id/e2"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:visibility="invisible"/>
 <EditText
     android:id="@+id/e3"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:visibility="invisible"/>
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="350px"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/e4"
+        android:inputType="textMultiLine"
+    android:lines="8"
+    android:minLines="6"
+    android:gravity="top|left"
+    android:maxLines="10"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:scrollbars="vertical"
+    android:visibility="invisible"
+    />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="350px"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:visibility="invisible"/>
+
+
 </LinearLayout>

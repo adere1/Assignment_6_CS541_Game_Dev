@@ -24,6 +24,7 @@ public class MainActivity extends Activity
 {
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
     JSONParser jParser = new JSONParser();
+    String url = "http://149.125.136.144/selectdata.php";
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -31,19 +32,29 @@ public class MainActivity extends Activity
         setContentView(R.layout.content_main);
 
         Button button = (Button) findViewById(R.id.button1);
+        final Button button1 = (Button) findViewById(R.id.button2);
+        final Button button2 = (Button) findViewById(R.id.button3);
         StrictMode.setThreadPolicy(policy);
 
         button.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
             {
+
                 String result = null;
                 InputStream is = null;
                 EditText editText = (EditText)findViewById(R.id.e1);
                 String v1 = editText.getText().toString();
                 EditText editText1 = (EditText)findViewById(R.id.e2);
                 EditText editText2 = (EditText)findViewById(R.id.e3);
-                String url = "http://149.125.136.144/selectdata.php";
+
+                EditText editText4 = (EditText)findViewById(R.id.e4);
+                editText1.setVisibility(View.VISIBLE);
+                editText2.setVisibility(View.VISIBLE);
+                editText4.setVisibility(View.INVISIBLE);
+                button1.setVisibility(View.VISIBLE);
+                button2.setVisibility(View.INVISIBLE);
+
 
                 URL currentUrl = null;
                 try {
@@ -61,19 +72,15 @@ public class MainActivity extends Activity
 
                     String name = editText.getText().toString();
                     urlConnection = (HttpURLConnection) currentUrl.openConnection();
-                    /*String data = URLEncoder.encode("username", "UTF-8") + "="
-                            + URLEncoder.encode("Aditya", "UTF-8");;*/
                     String data = URLEncoder.encode("name", "UTF-8")
                             + "=" + URLEncoder.encode(name, "UTF-8");
-                    //urlConnection.setRequestMethod("POST");
-                    //urlConnection.setDoInput(true);
+
+                    data += "&" + URLEncoder.encode("getreq", "UTF-8") + "="
+                            + URLEncoder.encode("true", "UTF-8");
                     urlConnection.setDoOutput(true);
                     OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
                     wr.write(data);
                     wr.flush();
-                    //wr.close();
-                    Log.d(name,"pqr");
-
                     in = new BufferedInputStream(urlConnection.getInputStream());
                     streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
                     while ((inputStr = streamReader.readLine()) != null) {
@@ -99,5 +106,90 @@ public class MainActivity extends Activity
                 }
             }
         });
+
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                EditText editText = (EditText)findViewById(R.id.e1);
+                EditText editText4 = (EditText)findViewById(R.id.e4);
+                EditText editText2 = (EditText)findViewById(R.id.e2);
+                EditText editText3 = (EditText)findViewById(R.id.e3);
+                editText2.setVisibility(View.INVISIBLE);
+                editText3.setVisibility(View.INVISIBLE);
+                button1.setVisibility(View.INVISIBLE);
+                editText4.setVisibility(View.VISIBLE);
+                editText4.setText(editText3.getText().toString());
+                button2.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+
+        button2.setOnClickListener(new View.OnClickListener() {
+
+
+            public void onClick(View view) {
+
+                EditText editText = (EditText)findViewById(R.id.e1);
+                EditText editText4 = (EditText)findViewById(R.id.e4);
+                EditText editText2 = (EditText)findViewById(R.id.e2);
+                EditText editText3 = (EditText)findViewById(R.id.e3);
+                editText2.setVisibility(View.INVISIBLE);
+                editText3.setVisibility(View.INVISIBLE);
+                button1.setVisibility(View.INVISIBLE);
+                editText4.setVisibility(View.INVISIBLE);
+                button2.setVisibility(View.INVISIBLE);
+                //editText4.setText(editText3.getText().toString());
+
+
+
+                URL currentUrl = null;
+                try {
+                    currentUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+
+                }
+                HttpURLConnection urlConnection = null;
+                InputStream in;
+                BufferedReader streamReader = null;
+                StringBuilder responseStrBuilder = new StringBuilder();
+                String inputStr;
+                try {
+
+                    String name = editText.getText().toString();
+                    urlConnection = (HttpURLConnection) currentUrl.openConnection();
+                    String data = URLEncoder.encode("name", "UTF-8")
+                            + "=" + URLEncoder.encode(name, "UTF-8");
+                    data += "&" + URLEncoder.encode("getreq", "UTF-8") + "="
+                            + URLEncoder.encode("false", "UTF-8");
+                    data += "&" + URLEncoder.encode("data", "UTF-8") + "="
+                            + URLEncoder.encode(editText4.getText().toString(), "UTF-8");
+                    urlConnection.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
+                    wr.write(data);
+                    wr.flush();
+                    Log.d(name,editText4.getText().toString());
+
+                    in = new BufferedInputStream(urlConnection.getInputStream());
+                    streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                    while ((inputStr = streamReader.readLine()) != null) {
+                        responseStrBuilder.append(inputStr);
+                    }
+                    //editText2.setText(responseStrBuilder.toString().split(name)[1]);
+
+                    Log.d(name,responseStrBuilder.toString());
+
+
+
+                }catch(Exception e){
+                    Log.e("log_tag", "Error in http connection "+e.toString());
+                    Toast.makeText(getApplicationContext(), "Connection fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 }
