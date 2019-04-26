@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/amarante</item>
+        <item>@font/arima_madurai_medium</item>
+        <item>@font/capriola</item>
+        <item>@font/delius</item>
+        <item>@font/delius_swash_caps</item>
+        <item>@font/pacifico</item>
+    </array>
+</resources>

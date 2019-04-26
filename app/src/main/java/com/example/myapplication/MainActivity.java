@@ -16,15 +16,18 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
     JSONParser jParser = new JSONParser();
-    String url = "http://149.125.136.144/selectdata.php";
+    String url = "http://192.168.1.179/selectdata.php";
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -36,10 +39,18 @@ public class MainActivity extends Activity
         final Button button2 = (Button) findViewById(R.id.button3);
         StrictMode.setThreadPolicy(policy);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         button.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
             {
+
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
 
                 String result = null;
                 InputStream is = null;
@@ -47,14 +58,12 @@ public class MainActivity extends Activity
                 String v1 = editText.getText().toString();
                 EditText editText1 = (EditText)findViewById(R.id.e2);
                 EditText editText2 = (EditText)findViewById(R.id.e3);
-
                 EditText editText4 = (EditText)findViewById(R.id.e4);
                 editText1.setVisibility(View.VISIBLE);
                 editText2.setVisibility(View.VISIBLE);
                 editText4.setVisibility(View.INVISIBLE);
                 button1.setVisibility(View.VISIBLE);
                 button2.setVisibility(View.INVISIBLE);
-
 
                 URL currentUrl = null;
                 try {
@@ -94,6 +103,7 @@ public class MainActivity extends Activity
 
                         JSONObject no1 = new JSONObject(no.getString("0"));
                         editText2.setText(no1.getString("notedata"));
+                        Log.i("MyData", editText2.getText().toString());
                         //Log.d(name,responseStrBuilder.toString());
                     }catch (Exception e){
                         editText2.setText("No Data Present");
@@ -114,22 +124,26 @@ public class MainActivity extends Activity
                 EditText editText4 = (EditText)findViewById(R.id.e4);
                 EditText editText2 = (EditText)findViewById(R.id.e2);
                 EditText editText3 = (EditText)findViewById(R.id.e3);
-                editText2.setVisibility(View.INVISIBLE);
+                editText2.setVisibility(View.VISIBLE);
                 editText3.setVisibility(View.INVISIBLE);
                 button1.setVisibility(View.INVISIBLE);
                 editText4.setVisibility(View.VISIBLE);
                 editText4.setText(editText3.getText().toString());
                 button2.setVisibility(View.VISIBLE);
-
-
             }
         });
 
 
         button2.setOnClickListener(new View.OnClickListener() {
 
+             public void onClick(View view) {
 
-            public void onClick(View view) {
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
 
                 EditText editText = (EditText)findViewById(R.id.e1);
                 EditText editText4 = (EditText)findViewById(R.id.e4);
@@ -141,6 +155,7 @@ public class MainActivity extends Activity
                 editText4.setVisibility(View.INVISIBLE);
                 button2.setVisibility(View.INVISIBLE);
                 //editText4.setText(editText3.getText().toString());
+
 
 
 
