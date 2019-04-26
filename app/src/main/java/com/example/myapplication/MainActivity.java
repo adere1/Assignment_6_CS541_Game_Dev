@@ -107,6 +107,7 @@ public class MainActivity extends Activity
                         //Log.d(name,responseStrBuilder.toString());
                     }catch (Exception e){
                         editText2.setText("No Data Present");
+                        button1.setVisibility(View.INVISIBLE);
                     }
 
 
@@ -143,8 +144,7 @@ public class MainActivity extends Activity
 
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
-
-
+                
                 EditText editText = (EditText)findViewById(R.id.e1);
                 EditText editText4 = (EditText)findViewById(R.id.e4);
                 EditText editText2 = (EditText)findViewById(R.id.e2);
@@ -195,6 +195,8 @@ public class MainActivity extends Activity
                     //editText2.setText(responseStrBuilder.toString().split(name)[1]);
 
                     Log.d(name,responseStrBuilder.toString());
+
+                    Toast.makeText(getApplicationContext(), "List Updated", Toast.LENGTH_LONG).show();
 
 
 
