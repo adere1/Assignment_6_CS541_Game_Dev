@@ -1,6 +1,6 @@
 CS 541 - Game Development for Mobile Platforms {Spring 2019}
 
-Project 5 - Android Application : Grocery List
+Project 6 - Android Application : Grocery List
 
 
 	1. Developed a client-server android application using PHP, MySQL, WampServer and Java
@@ -23,3 +23,9 @@ Application Workflow:-
     2. Backend is developed using PHP and MySQL. Based on get/edit request from client PHP code sends query to MySQL database.
     3. Result of a query is then converted into a JSON format and sent back to a client. 
     4. On client side we parse the JSON response and display it on a user interface. 	
+	
+
+Screenshots:-
+
+	
+	
